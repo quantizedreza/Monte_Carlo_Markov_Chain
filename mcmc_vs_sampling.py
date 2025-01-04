@@ -2,9 +2,6 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 def log_posterior(x, y):
-    """
-    Logarithm of the posterior distribution (up to a constant).
-    """
     return -0.5 * ((y - x**3)**2 + x**2)
 
 def rwm_sampler(y, num_samples, proposal_std, initial_x=0.0):
@@ -32,17 +29,6 @@ def rwm_sampler(y, num_samples, proposal_std, initial_x=0.0):
     return samples, acceptance_rate
 
 def importance_sampler(y, num_samples):
-    """
-    Importance sampler using the prior (Gaussian) as the proposal distribution.
-    
-    Parameters:
-    - y: Observed value.
-    - num_samples: Number of samples to draw.
-    
-    Returns:
-    - samples: Samples drawn from the prior (proposal distribution).
-    - weights: Importance weights for the samples.
-    """
     # Proposal distribution: Gaussian with mean 0, variance 1
     samples = np.random.normal(0, 1, num_samples)
     
@@ -83,7 +69,6 @@ plt.hist(samples_mcmc, bins=100, density=True, alpha=0.3, label="MCMC Samples")
 # Weighted histogram for Importance Sampling
 plt.hist(importance_samples, bins=100, weights=normalized_weights, density=True, alpha=0.4, label="Importance Samples")
 
-# Add legend and labels
 plt.title("MCMC vs Importance Sampling")
 plt.xlabel("x")
 plt.ylabel("Density")
